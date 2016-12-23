@@ -79,6 +79,11 @@ function App:isRunning()
 	return fcpx and fcpx:isRunning()
 end
 
+function App:activate()
+	local fcp = self:application()
+	return fcp and fcp:activate()
+end
+
 function App:menuBar()
 	if not self._menuBar then
 		self._menuBar = MenuBar:new(self)

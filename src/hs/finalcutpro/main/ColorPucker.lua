@@ -2,6 +2,8 @@ local mouse									= require("hs.mouse")
 local geometry								= require("hs.geometry")
 local drawing								= require("hs.drawing")
 local timer									= require("hs.timer")
+local eventtap								= require("hs.eventtap")
+local alert									= require("hs.alert")
 
 local Pucker = {}
 
@@ -34,7 +36,13 @@ function Pucker:start()
 	-- record the origin and draw a marker
 	self.origin = mouse.getAbsolutePosition()
 	
+	-- record the current settings of the aspect/property
+	self.oldPct = self.pctUI and self.pctUI:value()
+	self.oldAngle = self.angleUI and self.angleUI:value()
+	
 	self:drawMarker()
+	self:captureKeys()
+	self:captureClicks()
 	
 	-- start the timer
 	self.running = true
@@ -92,6 +100,48 @@ function Pucker:drawMarker()
 		:setFill(true)
 end
 
+function Pucker:captureClicks()
+	self.circle:clickCallbackActivating(false)
+	self.circle:setClickCallback(
+		function()
+			self:toggleColor()
+			self.colorBoard:app():activate()
+		end
+	)
+end
+
+function Pucker:captureKeys()
+	self.keys = eventtap.new({eventtap.event.types.keyUp},
+		function(event)
+			-- Any key release will stop the puck.
+			self:stop()
+		end
+	):start()
+end
+
+function Pucker:toggleColor()
+	-- TODO: confirm the click is inside the puck
+	local pctUI = self.pctUI
+	local angleUI = self.angleUI
+	if self.oldActive then
+		if angleUI then
+			angleUI:setAttributeValue("AXValue", self.newAngle):doConfirm()
+		end
+		pctUI:setAttributeValue("AXValue", self.newPct):doConfirm()
+		self.oldActive = false
+		Pucker.notify("Adjusted Color")
+	else
+		self.newPct = pctUI and pctUI:value()
+		self.newAngle = angleUI and angleUI:value()
+		if angleUI then
+			angleUI:setAttributeValue("AXValue", self.oldAngle):doConfirm()
+		end
+		pctUI:setAttributeValue("AXValue", self.oldPct):doConfirm()
+		self.oldActive = true
+		Pucker.notify("Original Color")
+	end
+end
+
 function Pucker:colorMarker(pct, angle)
 	local solidColor = nil
 	local fillColor = nil
@@ -145,6 +195,12 @@ function Pucker:cleanup()
 	if self.skimming and self.menuBar then
 		self.menuBar:checkMenu("View", "Skimming")
 	end
+	
+	if self.keys then
+		self.keys:stop()
+		self.keys = nil
+	end
+	
 	self.menuBar = nil
 	self.colorBoard.pucker = nil
 end
@@ -196,6 +252,10 @@ function Pucker.loop(pucker)
 	if yShift and pctUI then pctUI:setAttributeValue("AXValue", tostring(pctValue)):doConfirm() end
 	if xShift and angleUI then angleUI:setAttributeValue("AXValue", tostring(angleValue)):doConfirm() end
 	
+	if yShift and yShift ~= 0 or xShift and xShift ~= 0 then
+		pucker.oldActive = false
+	end
+	
 	timer.doAfter(0.01, function() Pucker.loop(pucker) end)
 end
 
@@ -204,5 +264,11 @@ function Pucker.tension(diff)
 	local tension = Pucker.elasticity * (diff*factor-Pucker.naturalLength) / Pucker.naturalLength
 	return tension < 0 and 0 or tension * factor
 end
+
+function Pucker.notify(whatMessage)
+	alert.closeAll(0)
+	alert.show(whatMessage)
+end
+
 
 return Pucker

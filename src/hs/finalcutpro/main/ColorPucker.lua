@@ -129,7 +129,7 @@ function Pucker:toggleColor()
 		end
 		pctUI:setAttributeValue("AXValue", self.newPct):doConfirm()
 		self.oldActive = false
-		Pucker.notify("Adjusted Color")
+		Pucker.notify("Adjusted")
 	else
 		self.newPct = pctUI and pctUI:value()
 		self.newAngle = angleUI and angleUI:value()
@@ -138,7 +138,7 @@ function Pucker:toggleColor()
 		end
 		pctUI:setAttributeValue("AXValue", self.oldPct):doConfirm()
 		self.oldActive = true
-		Pucker.notify("Original Color")
+		Pucker.notify("Original")
 	end
 end
 

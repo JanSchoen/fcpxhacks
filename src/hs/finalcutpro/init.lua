@@ -60,7 +60,15 @@ end
 --- Returns:
 ---  * Returns the current language as string (or 'en' if unknown).
 ---
-function finalcutpro.currentLanguage(forceReload)
+function finalcutpro.currentLanguage(forceReload, forceLanguage)
+
+	--------------------------------------------------------------------------------
+	-- Force a Language:
+	--------------------------------------------------------------------------------
+	if forceReload and forceLanguage ~= nil then
+		finalcutpro.cachedCurrentLanguage = forceLanguage
+		return finalcutpro.cachedCurrentLanguage
+	end
 
 	--------------------------------------------------------------------------------
 	-- Caching:
@@ -524,6 +532,10 @@ end
 ---
 function finalcutpro.getActiveCommandSetPath()
 	local result = finalcutpro.getPreference("Active Command Set") or nil
+	if result == nil then
+		-- In the unlikely scenario that this is the first time FCPX has been run:
+		return "/Applications/Final Cut Pro.app/Contents/Resources/" .. finalcutpro.currentLanguage() .. ".lproj/Default.commandset"
+	end
 	return result
 end
 
@@ -1269,11 +1281,19 @@ function finalcutpro._inspectElement(e, options, i)
 
 	i = i or 0
 	local depth = options and options.depth or 1
-	return [[
-      Role     = ]] .. inspect(e:attributeValue("AXRole")) .. [[
-      Children = ]] .. inspect(#e) .. [[
-==============================================
-]] .. inspect(e:buildTree(depth)) .. "\n"
+	local out = "\n      Role       = " .. inspect(e:attributeValue("AXRole"))
+	
+	local id = e:attributeValue("AXIdentifier")
+	if id then
+		out = out.. "\n      Identifier = " .. inspect(id)
+	end
+	
+	out = out.. "\n      Children   = " .. inspect(#e)
+			
+	out = out.. "\n==============================================" ..
+				"\n" .. inspect(e:buildTree(depth)) .. "\n"
+	
+	return out
 end
 
 function finalcutpro._highlightElement(e)

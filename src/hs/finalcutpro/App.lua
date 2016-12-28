@@ -18,13 +18,17 @@ local MenuBar									= require("hs.finalcutpro.MenuBar")
 local PreferencesWindow							= require("hs.finalcutpro.prefs.PreferencesWindow")
 local PrimaryWindow								= require("hs.finalcutpro.main.PrimaryWindow")
 local SecondaryWindow							= require("hs.finalcutpro.main.SecondaryWindow")
+local Timeline									= require("hs.finalcutpro.main.Timeline")
+local Browser									= require("hs.finalcutpro.main.Browser")
+local Viewer									= require("hs.finalcutpro.main.Viewer")
+local CommandEditor								= require("hs.finalcutpro.cmd.CommandEditor")
 
 --- The App module
 local App = {}
 
 --- Constants
-App.BUNDLE_ID 							= "com.apple.FinalCut"
-App.PASTEBOARD_UTI 						= "com.apple.flexo.proFFPasteboardUTI"
+App.BUNDLE_ID 									= "com.apple.FinalCut"
+App.PASTEBOARD_UTI 								= "com.apple.flexo.proFFPasteboardUTI"
 
 --- hs.finalcutpro.App:new() -> App
 --- Function
@@ -112,6 +116,13 @@ function App:secondaryWindow()
 	return self._secondaryWindow
 end
 
+function App:commandEditor()
+	if not self._commandEditor then
+		self._commandEditor = CommandEditor:new(self)
+	end
+	return self._commandEditor
+end
+
 --- hs.finalcutpro.App:windowsUI() -> axuielement
 --- Function
 --- Returns the UI containing the list of windows in the app.
@@ -137,9 +148,12 @@ end
 --- Returns:
 ---  * the Timeline
 function App:timeline()
-	local timeline = self:secondaryWindow():timeline()
-	return timeline:isShowing() and timeline or self:primaryWindow():timeline()
-end	
+	if not self._timeline then
+		self._timeline = Timeline:new(self)
+	end
+	return self._timeline
+end
+
 
 --- hs.finalcutpro.App:viewer() -> Viewer
 --- Function
@@ -151,9 +165,11 @@ end
 --- Returns:
 ---  * the Viewer
 function App:viewer()
-	local viewer = self:secondaryWindow():viewer()
-	return viewer:isShowing() and viewer or self:primaryWindow():viewer()
-end	
+	if not self._viewer then
+		self._viewer = Viewer:new(self, false)
+	end
+	return self._viewer
+end
 
 --- hs.finalcutpro.App:eventViewer() -> Viewer
 --- Function
@@ -165,13 +181,11 @@ end
 --- Returns:
 ---  * the Event Viewer
 function App:eventViewer()
-	local viewer = self:secondaryWindow():viewer()
-	if viewer:isShowing() then
-		return self:secondaryWindow():eventViewer()
-	else
-		return self:primaryWindow():eventViewer()
+	if not self._eventViewer then
+		self._eventViewer = Viewer:new(self, true)
 	end
-end	
+	return self._eventViewer
+end
 
 --- hs.finalcutpro.App:browser() -> Browser
 --- Function
@@ -183,9 +197,11 @@ end
 --- Returns:
 ---  * the Browser
 function App:browser()
-	local browser = self:secondaryWindow():browser()
-	return browser:isShowing() and browser or self:primaryWindow():browser()
-end	
+	if not self._browser then
+		self._browser = Browser:new(self)
+	end
+	return self._browser
+end
 
 --- hs.finalcutpro.App:inspector() -> Inspector
 --- Function
@@ -198,7 +214,7 @@ end
 ---  * the Inspector
 function App:inspector()
 	return self:primaryWindow():inspector()
-end	
+end
 
 --- hs.finalcutpro.App:colorBoard() -> ColorBoard
 --- Function
@@ -211,11 +227,11 @@ end
 ---  * the ColorBoard
 function App:colorBoard()
 	return self:primaryWindow():colorBoard()
-end	
+end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
--- 
+--
 -- DEBUG FUNCTIONS
 --
 ----------------------------------------------------------------------------------------
@@ -227,7 +243,7 @@ function App:_listWindows()
 	for i,w in ipairs(windows) do
 		debugMessage(string.format("%7d", i)..": "..self:_describeWindow(w))
 	end
-	
+
 	debugMessage("")
 	debugMessage("   Main: "..self:_describeWindow(self:UI():mainWindow()))
 	debugMessage("Focused: "..self:_describeWindow(self:UI():focusedWindow()))

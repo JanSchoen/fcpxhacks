@@ -586,7 +586,128 @@ function testingGround()
 	--------------------------------------------------------------------------------
 	console.clearConsole()
 
+	local result = getListOfGapClipsFromSelection()
+
 end
+
+
+--------------------------------------------------------------------------------
+-- GET LIST OF GAP CLIPS FROM SELECTION:
+--------------------------------------------------------------------------------
+function getListOfGapClipsFromSelection()
+
+	local errorFunction =  " Error occurred in getListOfGapClipsFromSelection()."
+
+	--------------------------------------------------------------------------------
+	-- Ninja Pasteboard Copy:
+	--------------------------------------------------------------------------------
+	local result, clipboardData = ninjaPasteboardCopy()
+	if not result then
+		debugMessage("ERROR: Ninja Pasteboard Copy Failed." .. errorFunction)
+		return false
+	end
+
+	--------------------------------------------------------------------------------
+	-- Convert Binary Data to Table:
+	--------------------------------------------------------------------------------
+	local clipboardTable = plist.binaryToTable(clipboardData)
+	if clipboardTable == nil then
+		debugMessage("ERROR: Converting Binary Data to Table failed." .. errorFunction)
+		return false
+	end
+
+	--------------------------------------------------------------------------------
+	-- Read ffpasteboardobject from Table:
+	--------------------------------------------------------------------------------
+	local fcpxData = clipboardTable["ffpasteboardobject"]
+	if fcpxData == nil then
+		debugMessage("ERROR: Reading 'ffpasteboardobject' from Table failed." .. errorFunction)
+		return false
+	end
+
+	--------------------------------------------------------------------------------
+	-- Convert base64 Data to Table:
+	--------------------------------------------------------------------------------
+	local fcpxTable = plist.base64ToTable(fcpxData)
+	if fcpxTable == nil then
+		debugMessage("ERROR: Converting Binary Data to Table failed." .. errorFunction)
+		return false
+	end
+
+	--writeToConsole(inspect(fcpxTable), true)
+
+	--------------------------------------------------------------------------------
+	-- Get FFAnchoredCollection ID:
+	--------------------------------------------------------------------------------
+	local FFAnchoredCollectionID = nil
+	for k, v in pairs(fcpxTable["$objects"]) do
+		if type(fcpxTable["$objects"][k]) == "table" then
+			if fcpxTable["$objects"][k]["$classname"] ~= nil then
+				if fcpxTable["$objects"][k]["$classname"] == "FFAnchoredGapGeneratorComponent" then
+					FFAnchoredCollectionID = k - 1
+				end
+			end
+		end
+	end
+	if FFAnchoredCollectionID == nil then
+		debugMessage("ERROR: Failed to get FFAnchoredCollectionID." .. errorFunction)
+		return false
+	end
+
+	--------------------------------------------------------------------------------
+	-- Find all FFAnchoredCollection's:
+	--------------------------------------------------------------------------------
+	local FFAnchoredCollectionTable = {}
+	for k, v in pairs(fcpxTable["$objects"]) do
+		if type(fcpxTable["$objects"][k]) == "table" then
+			for a, b in pairs(fcpxTable["$objects"][k]) do
+				if fcpxTable["$objects"][k][a] == FFAnchoredCollectionID then
+					FFAnchoredCollectionTable[#FFAnchoredCollectionTable + 1] = fcpxTable["$objects"][k]
+				end
+				if type(fcpxTable["$objects"][k][a]) == "table" then
+					for c, d in pairs(fcpxTable["$objects"][k][a]) do
+						if fcpxTable["$objects"][k][a][c] == FFAnchoredCollectionID then
+							FFAnchoredCollectionTable[#FFAnchoredCollectionTable + 1] = fcpxTable["$objects"][k]
+						end
+						if type(fcpxTable["$objects"][k][a][c]) == "table" then
+							for e, f in pairs(fcpxTable["$objects"][k][a][c]) do
+								if fcpxTable["$objects"][k][a][c][e] == FFAnchoredCollectionID then
+									FFAnchoredCollectionTable[#FFAnchoredCollectionTable + 1] = fcpxTable["$objects"][k]
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	if next(FFAnchoredCollectionTable) == nil then
+		debugMessage("ERROR: Failed to get FFAnchoredCollectionTable." .. errorFunction)
+		return false
+	end
+
+	writeToConsole(inspect(FFAnchoredCollectionTable), true)
+
+	gapCount = 0
+	for k, v in pairs(FFAnchoredCollectionTable) do
+
+		gapCount = gapCount + 1
+
+		--local class = fcpxTable["$objects"][ v["$class"]["CF$UID"] + 1 ]
+		--print(class)
+
+		--local displayName = fcpxTable["$objects"][ v["displayName"]["CF$UID"] + 1 ]
+		--print(displayName)
+
+		local clippedRange = fcpxTable["$objects"][ v["clippedRange"]["CF$UID"] + 1 ]
+		print(clippedRange)
+
+	end
+
+	print("gapCount: " .. tostring(gapCount))
+
+end
+
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------

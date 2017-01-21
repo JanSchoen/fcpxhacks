@@ -120,7 +120,7 @@ return {
 			--------------------------------------------------------------------------------
 			-- Error Messages:
 			--------------------------------------------------------------------------------
-			wrongHammerspoonVersionError		=			"FCPX Hacks requires Hammerspoon %{version} or later.\n\nPlease download the latest version of Hammerspoon and try again.",
+			wrongHammerspoonVersionError		=			"FCPX Hacks werkt alleen met Hammerspoon %{version} of  nieuwer.\n\nDownload a.u.b.de laatste versie van  Hammerspoon en probeer het opnieuw.",
 
 			noValidFinalCutPro                  =           "FCPX Hacks kan op deze computer geen geschikte versie van Final Cut Pro vinden\n\nkijkt u alstublieft of Final Cut Pro 10.2.3, 10.3 of een hogere versie is geïnstalleerd in the hoofdmap van de Programmafolder en geen andere naam heeft gekregen dan ’Final Cut Pro'.\n\nHammerspoon wordt nu gestopt.",
 			missingFiles                        =           "FCPX Hacks mist een aantal noodzakelijke files.\n\nWilt u alstublieft proberen om opnieuw de laatste versie van FCPX Hacks te downloaden van de website en volg de installatie-instructies zorgvuldig op.\n\nHammerspoon wordt nu gestopt.",
@@ -158,10 +158,10 @@ return {
 			batchExportDestinationsNotFound		=	"We kunnen de lijst met gedeelde lokaties niet vinden.",
 			batchExportNoDestination		=	"Blijkbaar heeft u geen standaard lokatie ingesteld.\n\nU kunt een standaardlokatie instellen door naar ‘Preferences’ te gaan, klik op de 'Destinations' tab, klik dan met de rechtermuisknop ingedrukt op de te kiezen lokatie en klik op ‘Make Default’.\n\nU kunt een Batch Export Lokatie preset instellen via de FCP Hacks menubar.",
 			batchExportEnableBrowser		=	"Zorg er a.u.b. voor dat de browser is ingeschakeld vóór het  exporteren.",
-			batchExportCheckPath				=			"Final Cut Pro will export the%{count}selected %{item} to the following location:\n\n\t%{path}\n\nUsing the following preset:\n\n\t%{preset}\n\nIf the preset is adding the export to an iTunes Playlist, the Destination Folder will be ignored. %{replace}\n\nYou can change these settings via the FCPX Hacks Menubar Preferences.\n\nPlease do not interrupt Final Cut Pro once you press the Continue button as it may break the automation.",
-			batchExportCheckPathSidebar			=			"Final Cut Pro will export all items in the selected containers to the following location:\n\n\t%{path}\n\nUsing the following preset:\n\n\t%{preset}\n\nIf the preset is adding the export to an iTunes Playlist, the Destination Folder will be ignored. %{replace}\n\nYou can change these settings via the FCPX Hacks Menubar Preferences.\n\nPlease do not interrupt Final Cut Pro once you press the Continue button as it may break the automation.",
-			batchExportReplaceYes				=			"Exports met dezelfde filenamen with duplicate filenames will be replaced.",
-			batchExportReplaceNo				=			"Exports with duplicate filenames will be incremented.",
+			batchExportCheckPath				=			"Final Cut Pro zal de %{count}selected %{item} exporteren naar de volgende lokatie:\n\n\t%{path}\n\nen gebruik maken van de volgende preset:\n\n\t%{preset}\n\nAls de preset de export toevoegt aan een iTunes Playlist, zal de bestemmingsfolder worden genegeerd. %{replace}\n\nU kunt deze instellingen veranderen via de FCPX Hacks Menubar Preferences.\n\nOnderbreek a.u.b.Final Cut Pro niet nadat u de 'Continue' knop heeft ingedrukt, dit kan het automatiseringproces afbreken.",
+			batchExportCheckPathSidebar			=			"Final Cut Pro zal alle items in de geselecteerde mappen exporteren naar de volgende lokatie:\n\n\t%{path}\n\ngebruik makend van de volgende preset:\n\n\t%{preset}\n\nAls de preset de export toevoegt aan een iTunes Playlist, zal de bestemmingsfolder worden genegeerd. %{replace}\n\nU kunt deze instellingen veranderen via de FCPX Hacks Menubar Preferences.\n\nOnderbreek a.u.b.Final Cut Pro niet nadat u de 'Continue' knop heeft ingedrukt, dit kan het automatiseringproces afbreken.",
+			batchExportReplaceYes				=			"Exports met dezelfde filenamen worden vervangen.",
+			batchExportReplaceNo				=			"Exports met dezelfde filenamen worden toegevoegd.",
 			batchExportNoClipsSelected			="Zorg er a.u.b. voor dat tenminste 1 clip voor export is geselecteerd.",
 			batchExportComplete				="Batch Export is nu compleet. De geselecteerde clips zijn toegevoegd aan uw render wachtrij.",
 
@@ -173,7 +173,7 @@ return {
 
 			backupIntervalFail                  =           "Het lukte niet om de Backup Interval weg te schrijven naar de Final Cut Pro Preferences file.",
 
-			voiceCommandsError 					= 			"Voice Commands could not be activated.\n\nPlease try again.",
+			voiceCommandsError 					= 			"Gesproken commando's kon niet worden geactiveerd.\n\nprobeert u het a.u.b. opnieuw.",
 
 			--------------------------------------------------------------------------------
 			-- Yes/No Dialog Boxes:
@@ -202,25 +202,25 @@ return {
 			changeBackupIntervalTextbox         =           "Op welke waarde (in minuten) wilt u Final Cut Pro Backup Interval zetten?",
 			changeBackupIntervalError           =           "De backup interval die u heeft ingevoerd is niet geldig. Voer aub een waarde in minuten in.",
 
-			selectDestinationPreset				=			"Please select a Destination Preset:",
-			selectDestinationFolder				=			"Please select a Destination Folder:",
+			selectDestinationPreset				=			"Selecteert u a.u.b. een bestemmingspreset:",
+			selectDestinationFolder				=			"Selecteert u a.u.b. een bestemmingsfolder:",
 
 			--------------------------------------------------------------------------------
 			-- Mobile Notifications
 			--------------------------------------------------------------------------------
-			iMessageTextBox						=			"Please enter the phone number or email address registered with iMessage to send the message to:",
-			prowlTextbox						=			"Please enter your Prowl API key below.\n\nIf you don't have one you can register for free at prowlapp.com.",
-			prowlTextboxError 					=			"The Prowl API Key you entered is not valid.",
+			iMessageTextBox						=			"Voert u a.u.b. een bij iMessage geregistreerd telefoonnummer of e-mailadres in om het bericht te sturen.:",
+			prowlTextbox						=			"Voer hieronder uw Prowl API key in.\n\nAls u die niet heeft kunt u gratis registreren bij prowlapp.com.",
+			prowlTextboxError 					=			"De Prowl API Key die u ingevoerd heeft is niet geldig.",
 
-			shareSuccessful 					=			"Share Successful\n%{info}",
-			shareFailed							=			"Share Failed",
-			shareUnknown						=			"Type: %{type}",
-			shareDetails_export					=			"Type: Local Export\nLocation: %{result}",
-			shareDetails_youtube				=			"Type: YouTube\nLogin: %{login}\nTitle: %{title}",
+			shareSuccessful 					=			"Gedeeld is gelukt\n%{info}",
+			shareFailed							=			"Het delen is niet gelukt",
+			shareUnknown						=			"Typ: %{type}",
+			shareDetails_export					=			"Typ: Local Export\nLocation: %{result}",
+			shareDetails_youtube				=			"Typ: YouTube\nLogin: %{login}\nTitle: %{title}",
 			shareDetails_Vimeo					=			"Type: Vimeo\nLogin: %{login}\nTitle: %{title}",
-			shareDetails_Facebook				=			"Type: Facebook\nLogin: %{login}\nTitle: %{title}",
-			shareDetails_Youku					=			"Type: Youku\nLogin: %{login}\nTitle: %{title}",
-			shareDetails_Tudou					=			"Type: Tudou\nLogin: %{login}\nTitle: %{title}",
+			shareDetails_Facebook				=			"Typ: Facebook\nLogin: %{login}\nTitle: %{title}",
+			shareDetails_Youku					=			"Typ: Youku\nLogin: %{login}\nTitle: %{title}",
+			shareDetails_Tudou					=			"Typ: Tudou\nLogin: %{login}\nTitle: %{title}",
 
 
 		--------------------------------------------------------------------------------
@@ -318,7 +318,7 @@ return {
 				enableClipboardHistory          =           "Zet Clipboard History Aan",
 				enableSharedClipboard           =           "Zet Gedeeld Clipboard Aan",
 				enableXMLSharing                =           "Zet XML Deling Aan",
-				enableVoiceCommands				=			"Enable Voice Commands",
+				enableVoiceCommands		=	    "Zet gesproken commando's aan",
 
 		--------------------------------------------------------------------------------
     	-- Hacks:
@@ -345,15 +345,15 @@ return {
 			--------------------------------------------------------------------------------
 			-- Preferences:
 			--------------------------------------------------------------------------------
-			batchExportOptions					=			"Batch Export Options",
+			batchExportOptions		    =		"Batch Export Opties",
 			menubarOptions                      =           "Menubar Opties",
 			hudOptions                          =           "HUD Opties",
-			voiceCommandOptions					=			"Voice Command Options",
+			voiceCommandOptions	   	=		"Gesproken commando's Opties",
 			touchBarLocation                    =           "Touch Bar Lokatie",
 			highlightPlayheadColour             =           "Accentueer Playhead Kleur",
 			highlightPlayheadShape              =           "Accentueer Playhead Vorm",
-			highlightPlayheadTime				=			"Highlight Playhead Time",
-			language							=			"Language",
+			highlightPlayheadTime				=			"Accentueer Playhead Tijd",
+			language							=			"Taal",
 			enableDebugMode                     =           "Maak Debug Modus mogelijk",
 			trachFCPXHacksPreferences           =           "Verwijder FCPX Hacks Voorkeuren",
 			provideFeedback                     =           "Geef Respons",
@@ -369,9 +369,9 @@ return {
 			--------------------------------------------------------------------------------
 			-- Batch Export Options:
 			--------------------------------------------------------------------------------
-			setDestinationPreset	 			=			"Set Destination Preset",
-			setDestinationFolder				=			"Set Destination Folder",
-			replaceExistingFiles				=			"Replace Existing Files",
+			setDestinationPreset	 			=			"Stel Bestemming preset in",
+			setDestinationFolder				=			"Stel Bestemming Folder in",
+			replaceExistingFiles				=			"Vervang bestaande files",
 
 			--------------------------------------------------------------------------------
 			-- Menubar Options:
@@ -393,9 +393,9 @@ return {
 			--------------------------------------------------------------------------------
 			-- Voice Command Options:
 			--------------------------------------------------------------------------------
-			enableAnnouncements					=			"Enable Announcements",
-			enableVisualAlerts					=			"Enable Visual Alerts",
-			openDictationPreferences			=			"Open Dictation Preferences...",
+			enableAnnouncements					=			"Sta berichtgeving toe",
+			enableVisualAlerts					=			"Sta visuele waarschuwingen toe",
+			openDictationPreferences			=			"Open Dictatie Preferences...",
 
 			--------------------------------------------------------------------------------
 			-- Touch Bar Location:
@@ -435,48 +435,48 @@ return {
 	--------------------------------------------------------------------------------
 	keyboardShortcuts					=			"Keyboard Shortcuts",
 	scrollingTimeline					=			"Scrolling Timeline",
-	highlight							=			"Highlight",
-	reveal								=			"Reveal",
-	play								=			"Play",
-	lane								=			"Lane",
+	highlight							=			"Accentueer",
+	reveal								=			"Toon",
+	play								=			"Speel af",
+	lane								=			"Strook",
 
 	--------------------------------------------------------------------------------
 	-- HACKS HUD:
 	--------------------------------------------------------------------------------
 	hacksHUD							=			"Hacks HUD",
-	originalOptimised					=			"Original/Optimised",
-	betterQuality						=			"Better Quality",
-	betterPerformance					=			"Better Performance",
+	originalOptimised					=			"Origineel/Optimised",
+	betterQuality						=			"Betere kwaliteit",
+	betterPerformance					=			"Betere weergave",
 	proxy								=			"Proxy",
-	hudDropZoneText						=			"Drag from Browser to Here",
-	hudDropZoneError					=			"Ah, I'm not sure what you dragged here, but it didn't look like FCPXML?",
-	hudButtonError						=			"There is currently no action assigned to this button.\n\nYou can allocate a function to this button via the FCPX Hacks menubar.",
-	hudXMLNameDialog					=			"How would you like to label this XML file?",
-	hudXMLNameError						=			"The label you entered has special characters that cannot be used.\n\nPlease try again.",
-	hudXMLSharingDisabled				=			"XML Sharing is currently disabled.\n\nPlease enable it via the FCPX Hacks menu and try again.",
+	hudDropZoneText						=			"Sleep van de Browser hier naar toe",
+	hudDropZoneError					=			"Ah, ik ben er niet zeker van wat u hier versleept, maar het lijkt niet op FCPXML?",
+	hudButtonError						=			"Tot op dit moment is er geen actie gekoppeld aan deze knop.\n\nU kunt een functie toewijzen aan deze knop via de FCPX Hacks menubar.",
+	hudXMLNameDialog					=			"Hoe wilt u deze XML file labelen?",
+	hudXMLNameError						=			"Het label dat u heeft ingevoerd bevat speciale karakters die niet kunnen worden gebruikt.\n\nProbeert u het a.u.b. opnieuw.",
+	hudXMLSharingDisabled				=			"XML deling is op dit moment niet ingeschakeld.\n\nZet deling via het FCPX Hacks menu aan en probeer het opnieuwand.",
 
 	--------------------------------------------------------------------------------
 	-- CONSOLE:
 	--------------------------------------------------------------------------------
-	highlightedItem						=			"Highlighted Item",
-	removeFromList						=			"Remove from List",
-	mode								=			"Mode",
-	normal								=			"Normal",
-	removeFromList						=			"Remove from List",
-	restoreToList						=			"Restore to List",
-	displayOptions						=			"Display Options",
-	showNone							=			"Show None",
-	showAll								=			"Show All",
-	showAutomation						=			"Show Automation",
-	showHacks							=			"Show Hacks",
-	showShortcuts						=			"Show Shortcuts",
-	showVideoEffects					=			"Show Video Effects",
-	showAudioEffects					=			"Show Audio Effects",
-	showTransitions						=			"Show Transitions",
-	showTitles							=			"Show Titles",
-	showGenerators						=			"Show Generators",
-	showMenuItems						=			"Show Menu Items",
-	rememberLastQuery					=			"Remember Last Query",
+	highlightedItem						=			"Accentueer Item",
+	removeFromList						=			"Verwijder van de lijst",
+	mode								=			"Modus",
+	normal								=			"Normaal",
+	removeFromList						=			"Verwijder van de lijst",
+	restoreToList						=			"Herstel terug naar lijst",
+	displayOptions						=			"Geef  Opties weer",
+	showNone							=			"Laat niets zien",
+	showAll								=			"Laat alles zien",
+	showAutomation						=			"Laat Automatisering zien",
+	showHacks							=			"Laat Hacks zien",
+	showShortcuts						=			"Laat Shortcuts zien",
+	showVideoEffects					=			"Laat Video Effects zien",
+	showAudioEffects					=			"Laat Audio Effects zien",
+	showTransitions						=			"Laat Transitions zien",
+	showTitles							=			"Laat Titles zien",
+	showGenerators						=			"Laat Generators zien",
+	showMenuItems						=			"Laat Menu Items zien",
+	rememberLastQuery					=			"Onthoud de laatste Opdracht",
 	update								=			"Update",
 	effectsShortcuts					=			"Effects Shortcuts",
 	transitionsShortcuts				=			"Transitions Shortcuts",
